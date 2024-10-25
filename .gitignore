@@ -1,0 +1,15 @@
+# python stuff
+../venv/
+.pylintrc
+__pycache__/
+.env
+
+# ide stuff
+.idea
+.vscode
+../src/
+
+# django stuff
+db.sqlite3
+media/
+fixtures/

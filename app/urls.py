@@ -17,7 +17,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # namespace - имя приложения, к которому относятся url-адреса, когда мы обращаемся к ним в html-шаблонах templates
     # подключаем адреса для приложения users
-    path('user/', include('users.urls', namespace='user')),
+    path('api/user/', include('users.urls', namespace='user')),
 ]
 
 # при отладке (debug = true), будем подключать дополнительный инструмент для более детальной отладки

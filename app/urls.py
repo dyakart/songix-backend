@@ -14,7 +14,7 @@ from django.conf.urls.static import static
 # второй аргумент - регистрация представления, которое будет закреплено за этим адресом
 # третий аргумент - для тегов в html-документах, чтобы можно было обращаться к этим ссылкам по имени
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('api/admin/', admin.site.urls),
     # namespace - имя приложения, к которому относятся url-адреса, когда мы обращаемся к ним в html-шаблонах templates
     # подключаем адреса для приложения users
     path('api/user/', include('users.urls', namespace='user')),

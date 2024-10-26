@@ -138,14 +138,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 # какой префикс будет добавлен, при получении статических файлов (css, js и тд), в браузере будет отображаться
-# следующий примерный путь: /static/deps/css/style.css
-STATIC_URL = 'static/'
+# следующий примерный путь: /staticfiles/deps/css/style.css
+STATIC_URL = 'staticfiles/'
 
-# указываем дополнительные места, где django нужно искать статику
-# бросаем папку static в корень проекта, так как будем использовать одинаковые зависимости для всех приложений
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+# для развертывания (collectstatic)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # какой префикс будет добавлен, при получении медиа-файлов
 MEDIA_URL = 'media/'

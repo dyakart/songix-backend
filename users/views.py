@@ -22,7 +22,7 @@ class LoginAPIView(APIView):
             auth.login(request, user)
             if user.first_name:
                 return Response({'message': f'{user.first_name}, Вы вошли в аккаунт'}, status=status.HTTP_200_OK)
-            return Response({'message': f'Добро пожаловать в Songix!'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Добро пожаловать в Songix!'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def handle_exception(self, exc):
@@ -41,7 +41,7 @@ class RegistrationAPIView(APIView):
         if serializer.is_valid(raise_exception=True):
             user = serializer.save()
             auth.login(request, user)
-            return Response({'message': f'{user.username}, Вы успешно зарегистрированы'},
+            return Response({'message': 'Добро пожаловать в Songix!'},
                             status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

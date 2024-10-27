@@ -14,7 +14,7 @@ def unlock_users(model_admin, request, queryset):
 # Регистрация модели User с добавленным action
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'is_active', 'is_locked')
+    list_display = ('email', 'is_active', 'is_locked')
     actions = [unlock_users]
 
     # Добавляем метод для отображения статуса блокировки

@@ -6,24 +6,27 @@ from datetime import timedelta
 
 
 class LoginSerializer(serializers.Serializer):
+    # Делаем необязательным, чтобы обрабатывать вручную
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
         email = data.get('email')
         password = data.get('password')
+
         # вход по email
         user = authenticate(username=email, password=password)
         if user:
             if user.is_locked():
-                raise serializers.ValidationError(f"Аккаунт заблокирован до {user.lock_until}. Попробуйте позже.")
+                raise serializers.ValidationError(
+                    {"error": f"Аккаунт заблокирован до {user.lock_until}. Попробуйте позже."})
 
             if user.is_active:
                 # Сбрасываем счетчик при успешной аутентификации
                 user.reset_failed_attempts()
                 return user
             else:
-                raise serializers.ValidationError("Аккаунт отключён. Обратитесь к администратору.")
+                raise serializers.ValidationError({"error": "Аккаунт отключён. Обратитесь к администратору."})
 
         # Если пользователь не найден или пароль неверный
         user = User.objects.filter(email=email).first()
@@ -37,15 +40,32 @@ class LoginSerializer(serializers.Serializer):
                 # Блокируем на 5 минут
                 user.lock_until = now() + timedelta(minutes=5)
                 user.save()
-                raise serializers.ValidationError(f"Аккаунт заблокирован до {user.lock_until}. Попробуйте позже.")
+                raise serializers.ValidationError(
+                    {"error": f"Аккаунт заблокирован до {user.lock_until}. Попробуйте позже."})
             user.save()
 
-        raise serializers.ValidationError("Неверные учетные данные!")
+        raise serializers.ValidationError({"error": "Неверные учетные данные!"})
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    password1 = serializers.CharField(write_only=True)
-    password2 = serializers.CharField(write_only=True)
+    email = serializers.EmailField(
+        error_messages={
+            "required": "Введите электронную почту.",
+            "invalid": "Введите правильный адрес электронной почты."
+        }
+    )
+    password1 = serializers.CharField(
+        write_only=True,
+        error_messages={
+            "required": "Введите пароль."
+        }
+    )
+    password2 = serializers.CharField(
+        write_only=True,
+        error_messages={
+            "required": "Подтвердите пароль."
+        }
+    )
 
     class Meta:
         model = User
@@ -57,17 +77,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     #     return value
 
     def validate(self, data):
-        # Проверяем, что email присутствует
-        if 'email' not in data:
-            raise serializers.ValidationError({"email": "Обязательное поле."})
         if data['password1'] != data['password2']:
-            raise serializers.ValidationError("Пароли не совпадают!")
+            raise serializers.ValidationError({"error": "Пароли не совпадают!"})
         return data
-
-    def validate_email(self, value):
-        if User.objects.filter(email=value).exists():
-            raise serializers.ValidationError("Этот email уже зарегистрирован!")
-        return value
 
     def create(self, validated_data):
         validated_data.pop('password2')
@@ -91,5 +103,5 @@ class ProfileSerializer(serializers.ModelSerializer):
         # Проверяем размер изображения
         # Ограничение: 2MB
         if value.size > 2 * 1024 * 1024:
-            raise serializers.ValidationError("Размер изображения не должен превышать 2MB.")
+            raise serializers.ValidationError({"error": "Размер изображения не должен превышать 2MB."})
         return value

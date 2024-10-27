@@ -90,7 +90,7 @@ class ProfileAPIView(APIView):
 
     def handle_exception(self, exc):
         if isinstance(exc, NotAuthenticated):
-            return Response({'detail': 'Необходимо войти в систему для доступа к профилю.'},
+            return Response({'error': 'Необходимо войти в систему для доступа к профилю.'},
                             status=status.HTTP_403_FORBIDDEN)
         return super().handle_exception(exc)
 

@@ -174,3 +174,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:3000',
 # ]
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'app.exceptions.custom_exception_handler',
+}

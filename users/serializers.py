@@ -6,9 +6,18 @@ from datetime import timedelta
 
 
 class LoginSerializer(serializers.Serializer):
-    # Делаем необязательным, чтобы обрабатывать вручную
-    email = serializers.EmailField()
-    password = serializers.CharField(write_only=True)
+    email = serializers.EmailField(
+        error_messages={
+            "required": "Введите электронную почту.",
+            "invalid": "Введите правильный адрес электронной почты."
+        }
+    )
+    password = serializers.CharField(
+        write_only=True,
+        error_messages={
+            "required": "Введите пароль."
+        }
+    )
 
     def validate(self, data):
         email = data.get('email')

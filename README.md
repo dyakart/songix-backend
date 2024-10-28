@@ -13,7 +13,7 @@
 ## Установка
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/DyakArt/songix_backend.git
+   git clone https://github.com/dyakart/songix_backend.git
    ```
 2. Перейдите в директорию проекта:
    ```bash

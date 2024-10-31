@@ -7,6 +7,7 @@ from pathlib import Path
 
 # импортируем наши данные из env файла
 from dotenv import load_dotenv
+
 # загружаем данные
 load_dotenv()
 
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     # наши приложения
-    'users',
+    'users',  # для работы с пользователями
+    'telegram_bot',  # для работы с телеграмм ботом
 
     # подключаем полнотекстовый поиск django
     'django.contrib.postgres',
@@ -178,3 +180,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'app.exceptions.custom_exception_handler',
 }
+
+TELEGRAM_BOT_TOKEN = os.getenv("TOKEN_TG")
+# Устанавливает запуск бота только в основном процессе
+RUN_BOT = os.getenv('RUN_MAIN') == 'true'

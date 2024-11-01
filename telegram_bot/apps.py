@@ -1,7 +1,7 @@
 import os
 from django.apps import AppConfig
 import threading
-from source.app import start  # Импорт функции `start` для запуска бота
+from .source.app import start  # Импорт функции `start` для запуска бота
 # импортируем наши данные из env файла
 from dotenv import load_dotenv
 

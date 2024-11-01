@@ -1,6 +1,5 @@
 aiogram==3.13.1
 aiohttp==3.10.10
-Django==5.1.2
 Django==4.2.11
 djangorestframework==3.15.2
 python-dotenv==1.0.1

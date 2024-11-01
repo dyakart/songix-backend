@@ -18,13 +18,13 @@ import aiohttp  # Асинхронная библиотека для HTTP-зап
 
 # наши импорты
 # импортируем фильтр для определения личка, группа, супергруппа
-from telegram_bot.source.filters.chat_types import ChatTypeFilter
+from ..filters.chat_types import ChatTypeFilter
 # импортируем ответные клавиатуры
-from telegram_bot.source.kbds.reply import get_keyboard
+from ..kbds.reply import get_keyboard
 # импортируем методы для лички
 # from actions.private import
 # импортируем глобальные переменные
-from telegram_bot.source.singleton import global_vars
+from ..singleton import global_vars
 
 # создаем отдельный роутер для сообщений лички
 user_private_router = Router()

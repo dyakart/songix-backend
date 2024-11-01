@@ -13,8 +13,8 @@ from django.conf import settings  # импортируем настройки dj
 load_dotenv(find_dotenv())
 
 # наши импорты
-from handlers.user_private import user_private_router  # импортируем наш роутер для обработки событий в личке
-from common.bot_cmds_list import private  # импортируем наши команды для бота (private - для личных сообщений)
+from .handlers.user_private import user_private_router  # импортируем наш роутер для обработки событий в личке
+from .common.bot_cmds_list import private  # импортируем наши команды для бота (private - для личных сообщений)
 # импортируем глобальные переменные
 from singleton import global_vars
 

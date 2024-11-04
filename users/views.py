@@ -9,12 +9,15 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import Throttled, NotAuthenticated
 from rest_framework.throttling import UserRateThrottle
 from users.models import User
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 
 
 class LoginAPIView(APIView):
     # Ограничиваем частоту запросов
     throttle_classes = [UserRateThrottle]
 
+    @method_decorator(ensure_csrf_cookie)  # Создаст CSRF cookie при первом запросе
+    @method_decorator(csrf_protect)  # Проверяет CSRF токен при POST-запросе
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -36,6 +39,9 @@ class LoginAPIView(APIView):
 
 
 class RegistrationAPIView(APIView):
+
+    @method_decorator(ensure_csrf_cookie)  # Создаст CSRF cookie при первом запросе
+    @method_decorator(csrf_protect)  # Проверяет CSRF токен при POST-запросе
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -96,6 +102,7 @@ class ProfileAPIView(APIView):
 
 
 class LogoutAPIView(APIView):
+    @method_decorator(csrf_protect)  # Проверяет CSRF токен при POST-запросе
     def post(self, request):
         if not request.user.is_authenticated:
             return Response({'message': 'Вы уже вышли из аккаунта.'}, status=status.HTTP_200_OK)

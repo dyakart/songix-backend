@@ -10,6 +10,7 @@ from rest_framework.exceptions import Throttled, NotAuthenticated
 from rest_framework.throttling import UserRateThrottle
 from users.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.utils.decorators import method_decorator
 
 
 class LoginAPIView(APIView):

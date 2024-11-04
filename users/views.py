@@ -11,15 +11,24 @@ from rest_framework.throttling import UserRateThrottle
 from users.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
+from django.middleware.csrf import get_token
 
 
 class LoginAPIView(APIView):
     # Ограничиваем частоту запросов
     throttle_classes = [UserRateThrottle]
 
-    @method_decorator(ensure_csrf_cookie)  # Создаст CSRF токен и сохранит в cookies
+    @method_decorator(ensure_csrf_cookie)  # Создаст CSRF токен и сохранит в cookies, если его нет
     def get(self, request):
-        return Response({'message': 'CSRF токен установлен'}, status=status.HTTP_200_OK)
+        csrf_token = request.COOKIES.get('csrftoken')  # Проверяем, есть ли CSRF токен в cookies
+
+        if csrf_token:
+            message = f'Ваш токен уже установлен: {csrf_token}'
+        else:
+            csrf_token = get_token(request)  # Создаем новый CSRF токен, если его нет
+            message = f'Ваш токен установлен. Ваш токен: {csrf_token}'
+
+        return Response({'message': message, 'csrfToken': csrf_token}, status=status.HTTP_200_OK)
 
     @method_decorator(csrf_protect)  # Проверяет CSRF токен при POST-запросе
     def post(self, request):

@@ -54,13 +54,16 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # отключаем стандартный csrf
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # добавляем дополнительный инструмент для отладки
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # подключаем наш кастомный csrf для обработки CSRF ошибок
+    'app.middleware.CustomCsrfMiddleware',
 ]
 
 # файл urls.py, где указаны все url-адреса нашего приложения

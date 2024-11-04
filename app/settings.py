@@ -169,7 +169,11 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_URL = '/user/login/'
 
 # сервер будет принимать запросы из любых источников, независимо от их доменного имени
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Укажите ваш клиентский домен
+    "https://www.songix.ru",  # Укажите другие домены, если они нужны
+    "https://songix.ru",  # Укажите другие домены, если они нужны
+]
 
 # ограничивать доступ конкретными доменами
 # CORS_ORIGIN_WHITELIST = [

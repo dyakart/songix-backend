@@ -175,6 +175,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://songix.ru",  # Укажите другие домены, если они нужны
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
 # ограничивать доступ конкретными доменами
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:3000',

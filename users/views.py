@@ -17,7 +17,10 @@ class LoginAPIView(APIView):
     # Ограничиваем частоту запросов
     throttle_classes = [UserRateThrottle]
 
-    @method_decorator(ensure_csrf_cookie)  # Создаст CSRF cookie при первом запросе
+    @method_decorator(ensure_csrf_cookie)  # Создаст CSRF токен и сохранит в cookies
+    def get(self, request):
+        return Response({'message': 'CSRF токен установлен'}, status=status.HTTP_200_OK)
+
     @method_decorator(csrf_protect)  # Проверяет CSRF токен при POST-запросе
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
@@ -41,7 +44,10 @@ class LoginAPIView(APIView):
 
 class RegistrationAPIView(APIView):
 
-    @method_decorator(ensure_csrf_cookie)  # Создаст CSRF cookie при первом запросе
+    @method_decorator(ensure_csrf_cookie)  # Создаст CSRF токен и сохранит в cookies
+    def get(self, request):
+        return Response({'message': 'CSRF токен установлен'}, status=status.HTTP_200_OK)
+
     @method_decorator(csrf_protect)  # Проверяет CSRF токен при POST-запросе
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)

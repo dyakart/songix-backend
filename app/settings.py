@@ -184,8 +184,8 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "127.0.0.1",
-    "localhost"
+    "http://127.0.0.1",
+    "http://localhost"
 ]
 
 # ограничивать доступ конкретными доменами

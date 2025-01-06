@@ -52,8 +52,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    # доп
     # отключаем стандартный csrf
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -176,9 +175,18 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Укажите ваш клиентский домен
     "https://www.songix.ru",  # Укажите другие домены, если они нужны
     "https://songix.ru",  # Укажите другие домены, если они нужны
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
 ]
 
+CORS_ORIGIN_ALLOW_ALL = False
+
 CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "127.0.0.1",
+    "localhost"
+]
 
 # ограничивать доступ конкретными доменами
 # CORS_ORIGIN_WHITELIST = [

@@ -175,8 +175,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Укажите ваш клиентский домен
     "https://www.songix.ru",  # Укажите другие домены, если они нужны
     "https://songix.ru",  # Укажите другие домены, если они нужны
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
